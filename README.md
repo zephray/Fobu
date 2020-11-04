@@ -13,7 +13,7 @@ Fobu is a key fob sized open-source FPGA + ARM handheld device (formerly Verilog
 
 The photo of an Fobu r0.2 prototype:
 
-![VBH-r0p2](https://github.com/zephray/Fobu/raw/master/doc/demo_vbh_r0p2.jpg)
+![VBH-r0p2](https://github.com/zephray/Fobu/raw/master/assets/demo_vbh_r0p2.jpg)
 
 # Software
 
