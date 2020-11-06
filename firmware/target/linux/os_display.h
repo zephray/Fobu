@@ -23,13 +23,12 @@
 // File : os_display.h
 // Brief: Display Abstraction Layer.
 //
-#ifndef __OS_DISPLAY_H__
-#define __OS_DISPLAY_H__
+#pragma once
 
 #include <stdint.h>
 
-#define DISP_WIDTH (250)
-#define DISP_HEIGHT (122)
+#define DISP_WIDTH (320)
+#define DISP_HEIGHT (320)
 
 typedef enum pixel_format {
     PIXFMT_Y1,
@@ -65,9 +64,11 @@ void os_disp_bilt(
         Canvas *dst, Canvas *src,
         int dst_x, int dst_y, int dst_w, int dst_h,
         int src_x, int src_y, int src_w, int src_h);
+void os_disp_bilt_raw(
+        Canvas *dst, uint8_t *src,
+        int dst_x, int dst_y,
+        int src_x, int src_y, int src_w, int src_h);
 void os_disp_conv(Canvas *dst, Canvas *src);
 
 // Commit to screen
 void os_disp_draw(Canvas *src);
-
-#endif

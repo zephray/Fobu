@@ -23,8 +23,7 @@
 // File : os_audio.h
 // Brief: Audio Abstraction Layer.
 //
-#ifndef __OS_AUDIO_H__
-#define __OS_AUDIO_H__
+#pragma once
 
 #include <stdint.h>
 
@@ -40,5 +39,3 @@ int os_audio_start(int samplerate, AudioFormat format, AudioCallback cb, void *u
 int os_audio_stop();
 // 0 - minimum (mute), 255 - maximum
 int os_audio_set_volume(uint8_t vol);
-
-#endif

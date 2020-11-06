@@ -23,8 +23,7 @@
 // File : decoder.h
 // Brief: Handles filesystem, audio output and decoder interaction
 //
-#ifndef __DECODER_H__
-#define __DECODER_H__
+#pragma once
 
 // The decoder subsystem owns two threads, one fetcher thread, one decoder
 // thread. The fetcher thread pushes raw data read from SD card into the FIFO,
@@ -70,5 +69,3 @@ size_t dec_audio_callback(void *userdata, uint8_t *stream, uint32_t len);
 int dec_play(DecoderContext *ctx);
 int dec_pause(DecoderContext *ctx);
 int dec_close(DecoderContext *ctx);
-
-#endif

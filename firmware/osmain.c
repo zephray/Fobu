@@ -23,30 +23,63 @@
 // File : osmain.c
 // Brief: Main entry point of the firmware / operating system
 //
+#include <stdio.h>
+#include <stdbool.h>
+#include "common.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
 #include "timers.h"
 #include "semphr.h"
-#include <stdio.h>
-#include <stdbool.h>
 #include "platform.h"
 #include "os_filesystem.h"
 #include "os_display.h"
 #include "os_audio.h"
 #include "minimp3.h"
 #include "decoder.h"
+#include "gui.h"
 #include "osmain.h"
 
+static void btn_event_cb(lv_obj_t * btn, lv_event_t event) {
+    if(event == LV_EVENT_PRESSED) {
+        static int cnt = 0;
+        cnt++;
+
+		printf("Interesting: %d\n", cnt);
+
+        /*Get the first child of the button which is the label and change its text*/
+        lv_obj_t * label = lv_obj_get_child(btn, NULL);
+        lv_label_set_text_fmt(label, "Button: %d", cnt);
+    }
+}
+
+void vApplicationTickHook(void) {
+	gui_tick();
+}
+
 void startup_task(void *pvParameters) {
-	os_disp_init();
+	UNUSED(pvParameters);
 
-	Canvas *fb = os_disp_create(256, 128, PIXFMT_Y1);
-	os_disp_fill(fb, 0, 0, 256, 128, 1);
+	gui_init();
 
-	os_fs_chdir(APP_ROOT);
+	xTaskCreate(gui_task, "GUI Task", GUI_TASK_HEAPSIZE,
+            NULL, GUI_TASK_PRIORITY, NULL);
 
-	Directory *directory; /* Directory object */
+	lv_group_t * g = lv_group_create();
+	lv_indev_set_group(indev_keypad, g);
+
+	lv_obj_t * btn = lv_btn_create(lv_scr_act(), NULL);
+    lv_obj_set_pos(btn, 10, 10);
+    lv_obj_set_size(btn, 120, 50);
+    lv_obj_set_event_cb(btn, btn_event_cb);
+	lv_group_add_obj(g, btn);
+
+    lv_obj_t * label = lv_label_create(btn, NULL);
+    lv_label_set_text(label, "Button");
+
+	/*os_fs_chdir(APP_ROOT);
+
+	Directory *directory;
 	FileInfo fileInformation;
 	int y = 0;
 
@@ -109,7 +142,7 @@ void startup_task(void *pvParameters) {
 	dec_close(ctx);
 	os_audio_stop();
 
-	vPortFree(ctx);
+	vPortFree(ctx);*/
 
 	vTaskSuspend(NULL);
 }

@@ -23,9 +23,6 @@
 // File : waveheader.h
 // Brief: Generate a wav file header with the given parameter
 //
-#ifndef __WAVEHEADER_H__
-#define __WAVEHEADER_H__
+#pragma once
 
 void waveheader(uint8_t *header, uint32_t sampleRate, uint32_t bitsPerFrame, uint32_t fileSize);
-
-#endif

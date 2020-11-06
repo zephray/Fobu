@@ -2,6 +2,25 @@ TARGET := firmware
 ODIR ?= build
 OBJODIR := $(ODIR)/obj
 
+# A simple variant is to prefix commands with $(Q) - that's useful
+# for commands that shall be hidden in non-verbose mode.
+#
+#	$(Q)ln $@ :<
+#
+# To put more focus on warnings, be less verbose as default
+# Use 'make V=1' to see the full commands
+ifeq ("$(origin V)", "command line")
+	BUILD_VERBOSE = $(V)
+else
+	BUILD_VERBOSE = 0
+endif
+
+ifeq ($(BUILD_VERBOSE),1)
+	Q =
+else
+	Q = @
+endif
+
 # Do not print "Entering directory ...",
 # but we want to display it when entering to the output directory
 # so that IDEs/editors are able to understand relative filenames.
@@ -57,9 +76,13 @@ CPPFLAGS := \
 
 LDFLAGS := \
 	-Wl,-Map="$(ODIR)/$(TARGET).map" \
-	-Wl,--gc-sections \
-	-Wl,--print-memory-usage
+	-Wl,--gc-sections
 
+# Include LVGL
+LVGL_DIR := ./middlewares
+LVGL_DIR_NAME := lvgl
+
+include $(LVGL_DIR)/$(LVGL_DIR_NAME)/lvgl.mk
 
 #******************************************************************************
 # Header File
@@ -68,6 +91,7 @@ INCLUDES += \
 	-I ./middlewares/freertos/include \
 	-I ./middlewares/freertos/portable/GCC/Linux \
 	-I ./middlewares/id3v2lib \
+	-I ./middlewares/lvgl \
 	-I ./middlewares/minimp3 \
 	-I ./middlewares/tjpgd \
 	-I ./services \
@@ -92,11 +116,13 @@ CSRCS += \
 	./middlewares/id3v2lib/utils.c \
 	./middlewares/tjpgd/tjpgd.c \
 	./services/decoder.c \
+	./services/gui.c \
 	./services/waveheader.c \
 	./target/linux/main.c \
 	./target/linux/os_audio.c \
 	./target/linux/os_display.c \
 	./target/linux/os_filesystem.c \
+	./target/linux/os_input.c \
 	./osmain.c
 
 #******************************************************************************
@@ -179,11 +205,6 @@ $(OBJODIR)/%: %
 PHONY += all
 all: $(OBJS)
 	$(Q)$(LD) $(CPUFLAGS) $(LDFLAGS) $(LDFILES) $(OBJS) $(LIBS) -o $(ODIR)/$(TARGET).elf
-	@echo $(CSRCS)
-	@echo ' '
-	@echo $(OBJS)
-	@echo ' '
-	@echo $(INCLUDES)
 	@echo 'all finish'
 
 PHONY += clean

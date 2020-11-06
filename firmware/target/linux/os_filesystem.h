@@ -23,8 +23,7 @@
 // File : os_filesystem.h
 // Brief: Filesystem OS Abstraction Layer
 //
-#ifndef __OS_FILESYSTEM_H__
-#define __OS_FILESYSTEM_H__
+#pragma once
 
 #include <stdio.h>
 #include <stdint.h>
@@ -77,5 +76,3 @@ int os_fs_readdir(Directory *dp, FileInfo* fno);
 int os_fs_closedir(Directory *dp);
 // Change current directory
 int os_fs_chdir(char *path);
-
-#endif

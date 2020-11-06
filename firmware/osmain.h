@@ -23,13 +23,12 @@
 // File : osmain.h
 // Brief: Main entry point of the firmware / operating system
 //
-#ifndef __OSMAIN_H__
-#define __OSMAIN_H__
+#pragma once
 
 #define STARTUP_TASK_HEAPSIZE (1024u)
+#define GUI_TASK_HEAPSIZE (1024u)
 
 #define STARTUP_TASK_PRIORITY (configMAX_PRIORITIES - 2U)
+#define GUI_TASK_PRIORITY (configMAX_PRIORITIES - 3U)
 
 void startup_task(void *pvParameters);
-
-#endif

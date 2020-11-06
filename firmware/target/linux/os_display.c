@@ -197,6 +197,8 @@ uint32_t os_disp_get(Canvas *src, int x, int y) {
         return (uint32_t)src->buf[offset];
         break;
     case PIXFMT_RGB565:
+        offset = y * src->width + x;
+        return ((uint16_t *)src->buf)[offset];
     case PIXFMT_RGB888:
     case PIXFMT_ARGB8888:
     case PIXFMT_RGBA8888:
@@ -257,8 +259,31 @@ void os_disp_bilt(
     fprintf(stderr, "Unimplemented function: Bilt buffer\n");
 }
 
+void os_disp_bilt_raw(
+        Canvas *dst, uint8_t *src,
+        int dst_x, int dst_y,
+        int src_x, int src_y, int src_w, int src_h) {
+    // This function requires the src to have the same pixel format as the
+    // destination canvas (implied from parameter list)
+    int bpp = os_disp_get_bpp(dst->pixelFormat);
+    if (bpp < 8) {
+        fprintf(stderr, "Unimplemented function: blit monochrome buffer\n");
+    }
+    int src_line_length = src_w * bpp / 8;
+    int dst_line_length = dst->width * bpp / 8;
+    for (int y = 0; y < src_h; y++) {
+        uint8_t *p_dst = dst->buf + (dst_y + y) * dst_line_length + dst_x;
+        uint8_t *p_src = src + y * src_line_length + src_x;
+        memcpy(p_dst, p_src, src_line_length);
+    } 
+}
+
 uint32_t os_disp_conv_pix(PixelFormat dst, PixelFormat src, uint32_t color) {
     int r = 0x00, g = 0x00, b = 0x00, a = 0xff;
+
+    if (src == dst)
+        return color;
+
     switch (src) {
     case PIXFMT_Y1:
     case PIXFMT_Y2:
@@ -329,7 +354,8 @@ void os_disp_draw(Canvas *src) {
     for (int yy = 0; yy < DISP_HEIGHT; yy++) {
         for (int xx = 0; xx < DISP_WIDTH; xx++)
             ((uint32_t *)screen->pixels)[yy * DISP_WIDTH + xx] = 
-                    os_disp_conv_pix(PIXFMT_ARGB8888, src->pixelFormat, os_disp_get(src, xx, yy));
+                    os_disp_conv_pix(PIXFMT_ARGB8888, src->pixelFormat,
+                    os_disp_get(src, xx, yy));
     }
     SDL_Flip(screen);
 }

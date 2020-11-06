@@ -26,22 +26,37 @@
 #include <stdio.h>
 #include <signal.h>
 #include <SDL/SDL.h>
+#include "common.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "osmain.h"
+#include "os_input.h"
 
-void housekeepingTask(void *arg){
+void housekeepingTask(void *pvParameters){
     SDL_Event event;
+
+    UNUSED(pvParameters);
 
     while(1){
         if (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
+            switch (event.type)
+            {
+            case SDL_QUIT:
                 printf("Exiting...\n");
                 vTaskEndScheduler();
+                break;
+
+            case SDL_KEYDOWN:
+            case SDL_KEYUP:
+                _os_input_handle_sdl_keyevent(event.key);
+                break;
+            
+            default:
+                break;
             }
         }
         // Yield
-        vTaskDelay(pdMS_TO_TICKS(100));
+        vTaskDelay(pdMS_TO_TICKS(50));
     }
 }
 
