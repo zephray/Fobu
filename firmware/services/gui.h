@@ -32,6 +32,9 @@ extern SemaphoreHandle_t gui_sem;
 
 extern lv_indev_t * indev_keypad;
 
+#define gui_enter() xSemaphoreTake(gui_sem, portMAX_DELAY)
+#define gui_exit() xSemaphoreGive(gui_sem)
+
 int gui_init(void);
 void gui_tick(void);
 void gui_task(void *pvParameters);

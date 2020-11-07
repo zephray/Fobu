@@ -73,9 +73,9 @@ void gui_tick(void) {
 void gui_task(void *pvParameters) {
     UNUSED(pvParameters);
     while (1) {
-        xSemaphoreTake(gui_sem, portMAX_DELAY);
+        gui_enter();
         lv_task_handler();
-        xSemaphoreGive(gui_sem);
+        gui_exit();
         vTaskDelay(pdMS_TO_TICKS(5));
     }
 }
@@ -177,22 +177,20 @@ static bool keypad_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data) {
 static uint32_t keypad_get_key(void) {
     uint32_t key_mask = os_input_get_keys();
 
-    if (key_mask & KEY_MASK_DOWN)
-        return LV_KEY_DOWN;
+    if (key_mask & KEY_MASK_UP)
+        return LV_KEY_PREV;
+    else if (key_mask & KEY_MASK_DOWN)
+        return LV_KEY_NEXT;
     else if (key_mask & KEY_MASK_LEFT)
         return LV_KEY_LEFT;
-    else if (key_mask & KEY_MASK_NO)
-        return LV_KEY_ESC;
     else if (key_mask & KEY_MASK_RIGHT)
         return LV_KEY_RIGHT;
-    else if (key_mask & KEY_MASK_SELECT)
-        return LV_KEY_END;
-    else if (key_mask & KEY_MASK_START)
-        return LV_KEY_HOME;
-    else if (key_mask & KEY_MASK_UP)
-        return LV_KEY_UP;
     else if (key_mask & KEY_MASK_YES)
-        return LV_KEY_ENTER;    
+        return LV_KEY_ENTER;
+    else if (key_mask & KEY_MASK_NO)
+        return LV_KEY_ESC;
+
+    // Start and select will be treated as soft buttons, not part of keypad
 
     return 0;
 }

@@ -53,7 +53,7 @@
 /* Dot Per Inch: used to initialize default sizes.
  * E.g. a button with width = LV_DPI / 2 -> half inch wide
  * (Not so important, you can adjust it to modify default sizes and spaces)*/
-#define LV_DPI              300     /*[px]*/
+#define LV_DPI              200     /*[px]*/
 
 /* The the real width of the display changes some default values:
  * default object sizes, layout of examples, etc.
@@ -77,7 +77,7 @@ typedef int16_t lv_coord_t;
  * The graphical objects and other related data are stored here. */
 
 /* 1: use custom malloc/free, 0: use the built-in `lv_mem_alloc` and `lv_mem_free` */
-#define LV_MEM_CUSTOM      0
+#define LV_MEM_CUSTOM      1
 #if LV_MEM_CUSTOM == 0
 /* Size of the memory used by `lv_mem_alloc` in bytes (>= 2kB)*/
 #  define LV_MEM_SIZE    (32U * 1024U)
@@ -92,9 +92,9 @@ typedef int16_t lv_coord_t;
 /* Automatically defrag. on free. Defrag. means joining the adjacent free cells. */
 #  define LV_MEM_AUTO_DEFRAG  1
 #else       /*LV_MEM_CUSTOM*/
-#  define LV_MEM_CUSTOM_INCLUDE <stdlib.h>   /*Header for the dynamic memory function*/
-#  define LV_MEM_CUSTOM_ALLOC   malloc       /*Wrapper to malloc*/
-#  define LV_MEM_CUSTOM_FREE    free         /*Wrapper to free*/
+#  define LV_MEM_CUSTOM_INCLUDE "FreeRTOS.h"   /*Header for the dynamic memory function*/
+#  define LV_MEM_CUSTOM_ALLOC   pvPortMalloc       /*Wrapper to malloc*/
+#  define LV_MEM_CUSTOM_FREE    vPortFree         /*Wrapper to free*/
 #endif     /*LV_MEM_CUSTOM*/
 
 /* Use the standard memcpy and memset instead of LVGL's own functions.
@@ -312,7 +312,7 @@ typedef void * lv_indev_drv_user_data_t;            /*Type of user data in the i
  *===============*/
 
 /*1: Enable the log module*/
-#define LV_USE_LOG      0
+#define LV_USE_LOG      1
 #if LV_USE_LOG
 /* How important log should be added:
  * LV_LOG_LEVEL_TRACE       A lot of logs to give detailed information
@@ -321,11 +321,11 @@ typedef void * lv_indev_drv_user_data_t;            /*Type of user data in the i
  * LV_LOG_LEVEL_ERROR       Only critical issue, when the system may fail
  * LV_LOG_LEVEL_NONE        Do not log anything
  */
-#  define LV_LOG_LEVEL    LV_LOG_LEVEL_WARN
+#  define LV_LOG_LEVEL    LV_LOG_LEVEL_INFO
 
 /* 1: Print the log with 'printf';
  * 0: user need to register a callback with `lv_log_register_print_cb`*/
-#  define LV_LOG_PRINTF   0
+#  define LV_LOG_PRINTF   1
 #endif  /*LV_USE_LOG*/
 
 /*=================
@@ -384,7 +384,7 @@ typedef void * lv_indev_drv_user_data_t;            /*Type of user data in the i
 #define LV_FONT_MONTSERRAT_12    0
 #define LV_FONT_MONTSERRAT_14    1
 #define LV_FONT_MONTSERRAT_16    0
-#define LV_FONT_MONTSERRAT_18    0
+#define LV_FONT_MONTSERRAT_18    1
 #define LV_FONT_MONTSERRAT_20    0
 #define LV_FONT_MONTSERRAT_22    0
 #define LV_FONT_MONTSERRAT_24    0
@@ -478,9 +478,9 @@ typedef void * lv_font_user_data_t;
 #define LV_THEME_DEFAULT_COLOR_SECONDARY    lv_color_hex(0x44d1b6)
 #define LV_THEME_DEFAULT_FLAG               LV_THEME_MATERIAL_FLAG_LIGHT
 #define LV_THEME_DEFAULT_FONT_SMALL         &lv_font_montserrat_14
-#define LV_THEME_DEFAULT_FONT_NORMAL        &lv_font_montserrat_14
-#define LV_THEME_DEFAULT_FONT_SUBTITLE      &lv_font_montserrat_14
-#define LV_THEME_DEFAULT_FONT_TITLE         &lv_font_montserrat_14
+#define LV_THEME_DEFAULT_FONT_NORMAL        &lv_font_montserrat_18
+#define LV_THEME_DEFAULT_FONT_SUBTITLE      &lv_font_montserrat_18
+#define LV_THEME_DEFAULT_FONT_TITLE         &lv_font_montserrat_18
 
 /*=================
  *  Text settings

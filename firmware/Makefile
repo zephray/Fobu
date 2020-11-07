@@ -88,6 +88,7 @@ include $(LVGL_DIR)/$(LVGL_DIR_NAME)/lvgl.mk
 # Header File
 INCLUDES += \
 	-I ./ \
+	-I ./applications/home \
 	-I ./middlewares/freertos/include \
 	-I ./middlewares/freertos/portable/GCC/Linux \
 	-I ./middlewares/id3v2lib \
@@ -100,6 +101,7 @@ INCLUDES += \
 #******************************************************************************
 # C File
 CSRCS += \
+	./applications/home/home.c \
 	./middlewares/freertos/croutine.c \
 	./middlewares/freertos/event_groups.c \
 	./middlewares/freertos/list.c \

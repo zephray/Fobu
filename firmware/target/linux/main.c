@@ -63,7 +63,7 @@ void housekeepingTask(void *pvParameters){
 int main(){
     xTaskCreate(housekeepingTask, "Housekeeping Task", 128,
             NULL, configMAX_PRIORITIES, NULL);
-    xTaskCreate(startup_task, "Startup Task", STARTUP_TASK_HEAPSIZE,
+    xTaskCreate(startup_task, "Startup Task", STARTUP_TASK_STACKSIZE,
             NULL, STARTUP_TASK_PRIORITY, NULL);
     vTaskStartScheduler();
 

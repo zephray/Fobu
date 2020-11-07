@@ -20,34 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// File : osmain.c
-// Brief: Main entry point of the firmware / operating system
+// File : home.h
+// Brief: Home screen of the firmware
 //
-#include <stdio.h>
-#include <stdbool.h>
-#include "common.h"
-#include "FreeRTOS.h"
-#include "semphr.h"
-#include "task.h"
-#include "platform.h"
-#include "gui.h"
-#include "osmain.h"
-#include "home.h"
+#pragma once
 
-void vApplicationTickHook(void) {
-	gui_tick();
-}
-
-void startup_task(void *pvParameters) {
-	UNUSED(pvParameters);
-
-	gui_init();
-
-	xTaskCreate(gui_task, "GUI Task", GUI_TASK_STACKSIZE, NULL,
-			GUI_TASK_PRIORITY, NULL);
-
-	xTaskCreate(home_task, "Home Task", APP_TASK_STACKSIZE, NULL, 
-			APP_TASK_PRIORITY, NULL);
-
-	vTaskDelete(NULL);
-}
+void home_task(void *pvParameters);

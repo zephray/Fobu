@@ -81,8 +81,10 @@ static uint8_t os_disp_get_mask(PixelFormat fmt) {
         return 0x03;
     case PIXFMT_Y4:
         return 0x0f;
+    default:
+        return 0x00;
     }
-    return 0x00; // Not applicable or unknown
+    return 0x00; // Unnecessary, but gcc gives a warning if I don't do so
 }
 
 // Framebuffer operation
@@ -202,9 +204,11 @@ uint32_t os_disp_get(Canvas *src, int x, int y) {
     case PIXFMT_RGB888:
     case PIXFMT_ARGB8888:
     case PIXFMT_RGBA8888:
-        fprintf(stderr, "Unimplemented function: Get pixel in color buffer\n");
+    default:
+        fprintf(stderr, "Unsupported pixel format\n");
         break;
     }
+    return 0;
 }
 
 void os_disp_fill(Canvas *dst, int x, int y, int w, int h, uint32_t color) {
@@ -269,12 +273,14 @@ void os_disp_bilt_raw(
     if (bpp < 8) {
         fprintf(stderr, "Unimplemented function: blit monochrome buffer\n");
     }
-    int src_line_length = src_w * bpp / 8;
-    int dst_line_length = dst->width * bpp / 8;
+    int pixel_bytes = bpp /8;
+    int src_line_bytes = src_w * pixel_bytes;
+    int dst_line_bytes = dst->width * pixel_bytes;
     for (int y = 0; y < src_h; y++) {
-        uint8_t *p_dst = dst->buf + (dst_y + y) * dst_line_length + dst_x;
-        uint8_t *p_src = src + y * src_line_length + src_x;
-        memcpy(p_dst, p_src, src_line_length);
+        uint8_t *p_dst = dst->buf + (dst_y + y) * dst_line_bytes +
+                dst_x * pixel_bytes;
+        uint8_t *p_src = src + y * src_line_bytes + src_x * pixel_bytes;
+        memcpy(p_dst, p_src, src_line_bytes);
     } 
 }
 
