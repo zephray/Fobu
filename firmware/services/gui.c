@@ -178,9 +178,9 @@ static uint32_t keypad_get_key(void) {
     uint32_t key_mask = os_input_get_keys();
 
     if (key_mask & KEY_MASK_UP)
-        return LV_KEY_PREV;
+        return LV_KEY_UP;
     else if (key_mask & KEY_MASK_DOWN)
-        return LV_KEY_NEXT;
+        return LV_KEY_DOWN;
     else if (key_mask & KEY_MASK_LEFT)
         return LV_KEY_LEFT;
     else if (key_mask & KEY_MASK_RIGHT)

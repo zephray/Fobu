@@ -101,6 +101,7 @@ INCLUDES += \
 #******************************************************************************
 # C File
 CSRCS += \
+	./applications/home/assets.c \
 	./applications/home/home.c \
 	./middlewares/freertos/croutine.c \
 	./middlewares/freertos/event_groups.c \
