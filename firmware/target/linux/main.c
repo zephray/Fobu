@@ -32,7 +32,7 @@
 #include "osmain.h"
 #include "os_input.h"
 
-void housekeepingTask(void *pvParameters){
+void housekeeping_task(void *pvParameters){
     SDL_Event event;
 
     UNUSED(pvParameters);
@@ -61,7 +61,7 @@ void housekeepingTask(void *pvParameters){
 }
 
 int main(){
-    xTaskCreate(housekeepingTask, "Housekeeping Task", 128,
+    xTaskCreate(housekeeping_task, "Housekeeping Task", 128,
             NULL, configMAX_PRIORITIES, NULL);
     xTaskCreate(startup_task, "Startup Task", STARTUP_TASK_STACKSIZE,
             NULL, STARTUP_TASK_PRIORITY, NULL);
