@@ -34,7 +34,7 @@ void os_disp_init() {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
         exit(1);
     }
-    screen = SDL_SetVideoMode(DISP_WIDTH, DISP_HEIGHT, 32, SDL_SWSURFACE);
+    screen = SDL_SetVideoMode(DISP_WIDTH, DISP_HEIGHT, 16, SDL_SWSURFACE);
     if (screen == NULL) {
         exit(1);
     }
@@ -353,6 +353,14 @@ uint32_t os_disp_conv_pix(PixelFormat dst, PixelFormat src, uint32_t color) {
 
 void os_disp_conv(Canvas *dst, Canvas *src) {
     fprintf(stderr, "Unimplemented function: buffer format conversion\n");
+}
+
+void os_disp_set_front_buffer(uint32_t *buf) {
+    memcpy(screen->pixels, buf, DISP_WIDTH * DISP_HEIGHT * 2);
+}
+
+void os_disp_flip(void) {
+    SDL_Flip(screen);
 }
 
 // Commit to screen

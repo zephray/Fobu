@@ -91,8 +91,9 @@ void lv_port_disp_init(void) {
     // needs to be able to claim the screen (exclusive mode) and switch to 
     // double buffering mode.
     static lv_disp_buf_t draw_buf_dsc_1;
-    static lv_color_t draw_buf_1[LV_HOR_RES_MAX * 10];
-    lv_disp_buf_init(&draw_buf_dsc_1, draw_buf_1, NULL, LV_HOR_RES_MAX * 10);
+    static lv_color_t buf1[DISP_WIDTH * DISP_HEIGHT];
+    static lv_color_t buf2[DISP_WIDTH * DISP_HEIGHT];
+    lv_disp_buf_init(&draw_buf_dsc_1, buf1, buf2, DISP_WIDTH * DISP_HEIGHT);
 
     // Register the display in LVGL
 
@@ -132,9 +133,11 @@ void lv_port_disp_init(void) {
 // background but 'lv_disp_flush_ready()' has to be called when finished.
 static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area,
         lv_color_t * color_p) {
-    os_disp_bilt_raw(fb0, (uint8_t *)color_p, area->x1, area->y1, 0, 0,
+    /*os_disp_bilt_raw(fb0, (uint8_t *)color_p, area->x1, area->y1, 0, 0,
             area->x2 - area->x1 + 1, area->y2 - area->y1 + 1);
-    os_disp_draw(fb0);
+    os_disp_draw(fb0);*/
+    os_disp_set_front_buffer(color_p);
+    os_disp_flip();
     lv_disp_flush_ready(disp_drv);
 }
 

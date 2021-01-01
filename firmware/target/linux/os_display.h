@@ -72,3 +72,8 @@ void os_disp_conv(Canvas *dst, Canvas *src);
 
 // Commit to screen
 void os_disp_draw(Canvas *src);
+
+// RAW screen operations
+
+void os_disp_set_front_buffer(uint32_t *buf);
+void os_disp_flip(void);
