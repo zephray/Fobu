@@ -3,7 +3,9 @@
     "active_layer": 0,
     "active_layer_preset": "",
     "auto_track_width": true,
-    "hidden_nets": [],
+    "hidden_nets": [
+      "GND"
+    ],
     "high_contrast_mode": 1,
     "net_color_mode": 1,
     "opacity": {
@@ -16,14 +18,14 @@
     "selection_filter": {
       "dimensions": false,
       "footprints": true,
-      "graphics": false,
+      "graphics": true,
       "keepouts": false,
-      "lockedItems": false,
+      "lockedItems": true,
       "otherItems": false,
       "pads": false,
       "text": false,
-      "tracks": false,
-      "vias": false,
+      "tracks": true,
+      "vias": true,
       "zones": false
     },
     "visible_items": [
@@ -54,20 +56,20 @@
       24,
       25,
       26,
-      27,
-      28,
-      29,
-      30,
-      31,
-      39,
-      40
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38
     ],
-    "visible_layers": "000ffff_80000007",
+    "visible_layers": "000ffef_8000001f",
     "zone_display_mode": 0
   },
   "meta": {
     "filename": "pcb.kicad_prl",
-    "version": 2
+    "version": 3
   },
   "project": {
     "files": []
