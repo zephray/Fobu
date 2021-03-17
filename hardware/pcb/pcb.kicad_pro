@@ -118,6 +118,7 @@
       },
       "track_widths": [
         0.0,
+        0.1,
         0.11,
         0.13,
         0.15,
@@ -370,7 +371,7 @@
         "name": "Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.11,
+        "track_width": 0.1,
         "via_diameter": 0.46,
         "via_drill": 0.2,
         "wire_width": 6.0
@@ -483,7 +484,7 @@
         ],
         "pcb_color": "rgb(0, 212, 0)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.11,
+        "track_width": 0.1,
         "via_diameter": 0.46,
         "via_drill": 0.2,
         "wire_width": 6.0
@@ -528,15 +529,22 @@
       },
       {
         "bus_width": 12.0,
-        "clearance": 0.11,
-        "diff_pair_gap": 0.25,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.1,
         "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.2,
+        "diff_pair_width": 0.15,
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
         "name": "DP",
-        "nets": [],
+        "nets": [
+          "/usb/DP_AUXN",
+          "/usb/DP_AUXP",
+          "/usb/DP_N0",
+          "/usb/DP_N1",
+          "/usb/DP_P0",
+          "/usb/DP_P1"
+        ],
         "pcb_color": "rgb(0, 0, 255)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.15,
@@ -546,10 +554,10 @@
       },
       {
         "bus_width": 12.0,
-        "clearance": 0.11,
-        "diff_pair_gap": 0.25,
+        "clearance": 0.1,
+        "diff_pair_gap": 0.1,
         "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.2,
+        "diff_pair_width": 0.15,
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
@@ -564,7 +572,7 @@
         ],
         "pcb_color": "rgb(255, 0, 0)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.11,
+        "track_width": 0.15,
         "via_diameter": 0.46,
         "via_drill": 0.2,
         "wire_width": 6.0
@@ -601,7 +609,7 @@
       },
       {
         "bus_width": 12.0,
-        "clearance": 0.11,
+        "clearance": 0.1,
         "diff_pair_gap": 0.25,
         "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.2,
@@ -619,7 +627,7 @@
         ],
         "pcb_color": "rgb(255, 0, 255)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.15,
+        "track_width": 0.1,
         "via_diameter": 0.46,
         "via_drill": 0.2,
         "wire_width": 6.0
@@ -695,7 +703,7 @@
         ],
         "pcb_color": "rgb(209, 208, 0)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.13,
+        "track_width": 0.1,
         "via_diameter": 0.46,
         "via_drill": 0.2,
         "wire_width": 6.0

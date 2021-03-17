@@ -476,13 +476,13 @@
       (reference "U1") (unit 1) (value "AXP209") (footprint "Package_DFN_QFN:QFN-48-1EP_6x6mm_P0.4mm_EP4.2x4.2mm_ThermalVias")
     )
     (path "/00000000-0000-0000-0000-00005e1291bc/51a7c862-6c71-481e-984c-d7075d78ef6d"
-      (reference "U3") (unit 1) (value "NX3P1108UK") (footprint "Package_CSP:WLCSP-4-X1-WLB0909-4_0.89x0.89mm_P0.5mm")
+      (reference "U3") (unit 1) (value "NX3P1108UK") (footprint "footprint:CSP-4_2x2_1.0x1.0mm")
     )
     (path "/00000000-0000-0000-0000-00005e1291bc/a87661d4-35b6-4161-8e60-59c520e947dd"
-      (reference "U5") (unit 1) (value "NX3P1108UK") (footprint "Package_CSP:WLCSP-4-X1-WLB0909-4_0.89x0.89mm_P0.5mm")
+      (reference "U5") (unit 1) (value "NX3P1108UK") (footprint "footprint:CSP-4_2x2_1.0x1.0mm")
     )
     (path "/00000000-0000-0000-0000-00005e1291bc/2c6a7b50-ca77-4c3e-b3f5-b2217f7870c3"
-      (reference "U6") (unit 1) (value "NX3P1108UK") (footprint "Package_CSP:WLCSP-4-X1-WLB0909-4_0.89x0.89mm_P0.5mm")
+      (reference "U6") (unit 1) (value "NX3P1108UK") (footprint "footprint:CSP-4_2x2_1.0x1.0mm")
     )
     (path "/00000000-0000-0000-0000-00005e1291bc/3f6e4510-33c4-4c8a-82e8-d5517848f29f"
       (reference "U7") (unit 1) (value "ADP121-1.2") (footprint "footprint:CSP-4_2x2_0.8x0.8mm")
@@ -492,9 +492,6 @@
     )
     (path "/81c8d95c-2ec3-4df7-adc0-a28a4b9f18a7/0171b341-5a9f-4daa-b338-8eee86120f74"
       (reference "#PWR0112") (unit 1) (value "GND") (footprint "")
-    )
-    (path "/81c8d95c-2ec3-4df7-adc0-a28a4b9f18a7/3da5924d-dc37-4b7f-b640-e4f9687409c8"
-      (reference "#PWR0113") (unit 1) (value "GND") (footprint "")
     )
     (path "/81c8d95c-2ec3-4df7-adc0-a28a4b9f18a7/ece282b6-ef45-42d6-9c4a-49d867b7c47b"
       (reference "#PWR0114") (unit 1) (value "GND") (footprint "")
@@ -711,9 +708,6 @@
     )
     (path "/81c8d95c-2ec3-4df7-adc0-a28a4b9f18a7/9c26b253-5d01-4884-bf27-952227431336"
       (reference "C111") (unit 1) (value "2.2uF") (footprint "Capacitor_SMD:C_0402_1005Metric")
-    )
-    (path "/81c8d95c-2ec3-4df7-adc0-a28a4b9f18a7/cae6810b-efef-40bd-a4d3-2afb8f76da5d"
-      (reference "C112") (unit 1) (value "1uF") (footprint "Capacitor_SMD:C_0402_1005Metric")
     )
     (path "/81c8d95c-2ec3-4df7-adc0-a28a4b9f18a7/8a4cf871-bd34-473d-9b74-1cfff0712ae0"
       (reference "C113") (unit 1) (value "2.2uF") (footprint "Capacitor_SMD:C_0402_1005Metric")
@@ -1097,16 +1091,16 @@
       (reference "R205") (unit 1) (value "2.2K") (footprint "Resistor_SMD:R_0402_1005Metric")
     )
     (path "/00000000-0000-0000-0000-00005fee12c8/c7e03d3c-bbc5-4fe7-aa44-d569c5e07cf1"
-      (reference "U200") (unit 1) (value "XC7S25-CSGA225") (footprint "Package_BGA:Xilinx_CSGA225")
+      (reference "U200") (unit 1) (value "XC7S25-CSGA225") (footprint "footprint:BGA-225_15x15_13.0x13.0mm")
     )
     (path "/00000000-0000-0000-0000-00005fee12c8/00000000-0000-0000-0000-00005fee1fc1"
-      (reference "U200") (unit 2) (value "XC7S25-CSGA225") (footprint "Package_BGA:Xilinx_CSGA225")
+      (reference "U200") (unit 2) (value "XC7S25-CSGA225") (footprint "footprint:BGA-225_15x15_13.0x13.0mm")
     )
     (path "/00000000-0000-0000-0000-00005fee12c8/00000000-0000-0000-0000-00005feeb2b7"
-      (reference "U200") (unit 3) (value "XC7S25-CSGA225") (footprint "Package_BGA:Xilinx_CSGA225")
+      (reference "U200") (unit 3) (value "XC7S25-CSGA225") (footprint "footprint:BGA-225_15x15_13.0x13.0mm")
     )
     (path "/00000000-0000-0000-0000-00005fee12c8/00000000-0000-0000-0000-00005feef0d0"
-      (reference "U200") (unit 4) (value "XC7S25-CSGA225") (footprint "Package_BGA:Xilinx_CSGA225")
+      (reference "U200") (unit 4) (value "XC7S25-CSGA225") (footprint "footprint:BGA-225_15x15_13.0x13.0mm")
     )
     (path "/00000000-0000-0000-0000-00005fee12c8/ac1455f9-2c77-4821-b961-242719409d61"
       (reference "U201") (unit 1) (value "74LVCH245A") (footprint "footprint:DHVQFN-20_EP_4.5x2.5_Pitch0.5mm")
@@ -1490,7 +1484,7 @@
       (reference "C703") (unit 1) (value "470nF") (footprint "Capacitor_SMD:C_0201_0603Metric")
     )
     (path "/00000000-0000-0000-0000-00005e129394/00000000-0000-0000-0000-00005db98410"
-      (reference "MICRO_SD700") (unit 1) (value "MICRO_SD(TFC-WPAPR-08)") (footprint "footprint:TFC-WPAPR-08")
+      (reference "CARD700") (unit 1) (value "MICRO_SD(TFC-WPAPR-08)") (footprint "footprint:TFC-WPAPR-08")
     )
     (path "/00000000-0000-0000-0000-00005e129394/00000000-0000-0000-0000-00005dbc2be9"
       (reference "R700") (unit 1) (value "0") (footprint "Resistor_SMD:R_0402_1005Metric")
@@ -1678,8 +1672,8 @@
     (path "/00000000-0000-0000-0000-00005e1293c4/3f197137-06e8-4a95-ada2-12d80abaa5fd"
       (reference "U800") (unit 1) (value "USBLC6-2P6") (footprint "Package_TO_SOT_SMD:SOT-666")
     )
-    (path "/00000000-0000-0000-0000-00005e1293c4/6d109fdb-c5b0-4c3d-bda3-499b4cf2cd2a"
-      (reference "U801") (unit 1) (value "FUSB302UCX") (footprint "Package_BGA:WLP-9_1.448x1.468mm_Layout3x3_P0.4mm_Ball0.27mm_Pad0.25mm")
+    (path "/00000000-0000-0000-0000-00005e1293c4/06a81d57-b3a7-44a8-8a7b-06a35d51de4f"
+      (reference "U801") (unit 1) (value "FUSB302BMPX") (footprint "Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm")
     )
     (path "/00000000-0000-0000-0000-00005e1293c4/35ea6b97-c1f7-4926-83aa-a7475fcbea06"
       (reference "U802") (unit 1) (value "CBTL08GP053") (footprint "footprint:BGA-40_6x9_3.5x5.0mm")
