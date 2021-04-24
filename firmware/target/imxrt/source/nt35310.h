@@ -20,12 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// File : clock.c
-// Brief: Clock management
+// File : nt35310.h
+// Brief: Driver for NT35310 LCD controller
 //
 #pragma once
 
-#define BOARD_XTAL0_CLK_HZ 24000000u
-#define BOARD_XTAL32K_CLK_HZ 32768u
-
-void clock_init_default(void);
+void nt35310_init(void);

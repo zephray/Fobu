@@ -20,12 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// File : clock.c
-// Brief: Clock management
+// File : video.h
+// Brief: Video input and output driver and low-level services
 //
 #pragma once
 
-#define BOARD_XTAL0_CLK_HZ 24000000u
-#define BOARD_XTAL32K_CLK_HZ 32768u
-
-void clock_init_default(void);
+void video_out_init(void);
+void video_dsi_write(uint8_t *buf, uint32_t size);

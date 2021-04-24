@@ -20,12 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
-// File : clock.c
-// Brief: Clock management
+// File : utils.h
+// Brief: Common utilities
 //
-#pragma once
 
-#define BOARD_XTAL0_CLK_HZ 24000000u
-#define BOARD_XTAL32K_CLK_HZ 32768u
-
-void clock_init_default(void);
+void util_sleep_ms(uint32_t ms);
+void util_sleep_us(uint32_t us);

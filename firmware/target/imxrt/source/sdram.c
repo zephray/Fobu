@@ -67,3 +67,7 @@ void sdram_init(void) {
     sdramconfig.delayChain             = 2;
     return SEMC_ConfigureSDRAM(SEMC, kSEMC_SDRAM_CS0, &sdramconfig, clockFrq);
 }
+
+void sdram_init_pins(void) {
+
+}
