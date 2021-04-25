@@ -23,9 +23,10 @@
 // File : nt35310.c
 // Brief: Driver for NT35310 LCD controller
 //
+#include "fsl_iomuxc.h"
 #include "fsl_gpio.h"
 #include "fsl_mipi_dsi.h"
-
+#include "vout.h"
 #include "utils.h"
 
 #define BOARD_LCD_BL_GPIO GPIO9
@@ -42,7 +43,8 @@ static const uint8_t initCmd0[]  = {0x11}; // Sleep out
 static const uint8_t initCmd1[]  = {0xED, 0x01, 0xFE}; // CMD2 Unlock
 static const uint8_t initCmd2[]  = {0xC4, 0x5F}; // VCOM
 static const uint8_t initCmd3[]  = {0xC6, 0x00, 0xE2, 0xE2, 0xE2, 0xBF, 0xAA}; // VGH VGL Clamp
-static const uint8_t initCmd4[]  = {0x3A, 0x76}; // Set MIPI Pixel Format to RGB888
+static const uint8_t initCmd4[]  = {0x3A, 0x55}; // Set MIPI Pixel Format to RGB565
+//static const uint8_t initCmd5[]  = {0x3B, 0x03, 0x06, 0x02, 0x14, 0x19};
 static const uint8_t initCmd5[]  = {0xB3, 0x40}; // Bypass
 static const uint8_t initCmd6[]  = {0xB3, 0x41}; // External Clock
 static const uint8_t initCmd7[]  = {0x2A, 0x00, 0x00, 0x01, 0x3f};
@@ -51,36 +53,46 @@ static const uint8_t initCmd9[]  = {0x2C}; // Memory write start
 static const uint8_t initCmd10[] = {0x29}; // Display On
 
 static cmd_sequence_t initSequence[] = {
-    initCmd1, sizeof(initCmd1),
-    initCmd2, sizeof(initCmd2),
-    initCmd3, sizeof(initCmd3),
-    initCmd4, sizeof(initCmd4),
-    initCmd5, sizeof(initCmd5),
-    initCmd6, sizeof(initCmd6),
-    initCmd7, sizeof(initCmd7),
-    initCmd8, sizeof(initCmd8),
-    initCmd9, sizeof(initCmd9),
-    initCmd10, sizeof(initCmd10),
+    {initCmd1, sizeof(initCmd1)},
+    {initCmd2, sizeof(initCmd2)},
+    {initCmd3, sizeof(initCmd3)},
+    {initCmd4, sizeof(initCmd4)},
+    {initCmd5, sizeof(initCmd5)},
+    {initCmd6, sizeof(initCmd6)},
+    {initCmd7, sizeof(initCmd7)},
+    {initCmd8, sizeof(initCmd8)},
+    {initCmd9, sizeof(initCmd9)},
+    {initCmd10, sizeof(initCmd10)},
 };
 
 #define INIT_SEQ_LENGTH (sizeof(initSequence) / sizeof(cmd_sequence_t))
 
 void nt35310_init(void) {
     const gpio_pin_config_t pinConfig = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
+
+    IOMUXC_SetPinMux(
+        IOMUXC_GPIO_AD_02_GPIO9_IO01,           /* GPIO_AD_02 is configured as GPIO9_IO01 */
+        0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+    IOMUXC_SetPinMux(
+        IOMUXC_GPIO_AD_30_GPIO9_IO29,           /* GPIO_AD_30 is configured as GPIO9_IO29 */
+        0U);                                    /* Software Input On Field: Input Path is determined by functionality */
+
     GPIO_PinInit(BOARD_LCD_BL_GPIO, BOARD_LCD_BL_PIN, &pinConfig);
     GPIO_PinInit(BOARD_LCD_RST_GPIO, BOARD_LCD_RST_PIN, &pinConfig);
 
     GPIO_PinWrite(BOARD_LCD_RST_GPIO, BOARD_LCD_RST_PIN, 0);
-    utils_sleep_ms(1);
+    util_sleep_ms(1);
     GPIO_PinWrite(BOARD_LCD_RST_GPIO, BOARD_LCD_RST_PIN, 1);
-    utils_sleep_ms(5);
+    util_sleep_ms(5);
 
     // Sleep out
-    video_dsi_write(initCmd0, sizeof(initCmd0));
-    utils_sleep_ms(200);
+    vout_dsi_write(initCmd0, sizeof(initCmd0));
+    util_sleep_ms(200);
 
     // Initialization sequence
     for (int i = 0; i < INIT_SEQ_LENGTH; i++) {
-        video_dsi_write(initSequence[i],dat, initSequence[i].length);
+        vout_dsi_write(initSequence[i].dat, initSequence[i].length);
     }
+
+    GPIO_PinWrite(BOARD_LCD_BL_GPIO, BOARD_LCD_BL_PIN, 1);
 }

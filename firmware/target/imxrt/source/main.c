@@ -24,10 +24,34 @@
 // Brief: Platform-specific program entry point
 //
 #include <stdio.h>
-#include "MIMXRT1176_cm4.h"
+#include "MIMXRT1176_cm7.h"
+#include "fsl_cache.h"
+#include "mpu.h"
+#include "clock.h"
+#include "sdram.h"
+#include "utils.h"
+#include "vout.h"
+
+void lcd_set_color(uint16_t cl) {
+	uint16_t *wrptr = (uint16_t *)framebuffer;
+	for (int i = 0; i < 320*320; i++) {
+		*wrptr++ = cl;
+	}
+	DCACHE_CleanInvalidateByRange((uint32_t)framebuffer, (320 * 320 * 2));
+}
 
 int main(void) {
-
-	while (1);
+	mpu_init();
+	clock_init_default();
+	sdram_init();
+	vout_init();
+	while (1) {
+		lcd_set_color(0xf800);
+		util_sleep_ms(1000);
+		lcd_set_color(0x07e0);
+		util_sleep_ms(1000);
+		lcd_set_color(0x001f);
+		util_sleep_ms(1000);
+	}
     return 0 ;
 }

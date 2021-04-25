@@ -23,6 +23,9 @@
 // File : clock.c
 // Brief: Clock management
 //
+#include "fsl_iomuxc.h"
+#include "fsl_dcdc.h"
+#include "fsl_pmu.h"
 #include "fsl_clock.h"
 
 #ifndef SKIP_POWER_ADJUSTMENT
@@ -138,6 +141,9 @@ void clock_init_default(void)
     CLOCK_SetRootClock(kCLOCK_Root_Bus_Lpsr, &rootCfg);
 #endif
 
+    /*
+     * if DCD is used, please make sure the clock source of SEMC is not changed in the following PLL/PFD configuration code.
+     */
     /* Init Arm Pll. */
     CLOCK_InitArmPll(&armPllConfig_BOARD_BootClockRUN);
 
@@ -220,6 +226,12 @@ void clock_init_default(void)
     rootCfg.mux = kCLOCK_SEMC_ClockRoot_MuxSysPll2Pfd1;
     rootCfg.div = 3;
     CLOCK_SetRootClock(kCLOCK_Root_Semc, &rootCfg);
+#endif
+
+#if defined(XIP_BOOT_HEADER_ENABLE) && (XIP_BOOT_HEADER_ENABLE == 1)
+#if defined(XIP_BOOT_HEADER_DCD_ENABLE) && (XIP_BOOT_HEADER_DCD_ENABLE == 1)
+    UpdateSemcClock();
+#endif
 #endif
 
     /* Configure CSSYS using OSC_RC_48M_DIV2 */
